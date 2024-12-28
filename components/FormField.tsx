@@ -13,6 +13,7 @@ type FormFieldProps = {
   title: string;
   value: string;
   placeholder: string;
+  secureTextEntry?: boolean;
   keyboardType: KeyboardTypeOptions;
   onChangeText: (text: string) => void;
   otherStyles: string;
@@ -22,6 +23,7 @@ const FormField = ({
   title,
   value,
   placeholder,
+  secureTextEntry,
   onChangeText,
   otherStyles,
   ...props

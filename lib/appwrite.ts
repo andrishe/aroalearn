@@ -5,6 +5,7 @@ import {
   Avatars,
   Storage,
   Databases,
+  Query,
 } from 'react-native-appwrite';
 
 export const config = {
@@ -68,6 +69,48 @@ export const signIn = async (email: string, password: string) => {
   try {
     const session = await account.createEmailPasswordSession(email, password);
     return session;
+  } catch (error) {
+    console.error(error);
+    throw new Error(error as any);
+  }
+};
+
+export const getCurrentUser = async () => {
+  try {
+    const currentAccount = await account.get();
+    if (!currentAccount) throw new Error('No user found');
+    const currentUser = await databases.listDocuments(
+      config.databaseId,
+      config.userCollectionId,
+      [Query.equal('accountId', currentAccount.$id)]
+    );
+
+    if (!currentUser) throw new Error('No user found');
+    return currentUser.documents[0];
+  } catch (error) {
+    console.error(error, 'Failed to get current user');
+    throw new Error(error as any);
+  }
+};
+
+export const getAllPosts = async () => {
+  try {
+    const posts = await databases.listDocuments(
+      config.databaseId,
+      config.videoCollectionId
+    );
+
+    if (!posts) throw new Error('No posts found');
+    return posts.documents;
+  } catch (error) {
+    console.error(error);
+    throw new Error(error as any);
+  }
+};
+
+export const logout = async () => {
+  try {
+    await account.deleteSession('current');
   } catch (error) {
     console.error(error);
     throw new Error(error as any);

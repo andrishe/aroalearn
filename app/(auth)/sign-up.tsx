@@ -69,6 +69,7 @@ export default function SignUp() {
             placeholder="Enter your password"
             onChangeText={(e) => setForm({ ...form, password: e })}
             otherStyles="mt-7"
+            keyboardType="default"
             secureTextEntry={true}
           />
           <CustomButton
