@@ -108,6 +108,38 @@ export const getAllPosts = async () => {
   }
 };
 
+export const getLatestPosts = async () => {
+  try {
+    const posts = await databases.listDocuments(
+      config.databaseId,
+      config.videoCollectionId,
+      [Query.orderDesc('$createdAt'), Query.limit(7)]
+    );
+
+    if (!posts) throw new Error('No posts found');
+    return posts.documents;
+  } catch (error) {
+    console.error(error);
+    throw new Error(error as any);
+  }
+};
+
+export const searchPosts = async (query: string) => {
+  try {
+    const posts = await databases.listDocuments(
+      config.databaseId,
+      config.videoCollectionId,
+      [Query.search('title', query)]
+    );
+
+    if (!posts.documents.length) throw new Error('No posts found');
+    return posts.documents;
+  } catch (error) {
+    console.error('Error in searchPosts:', error);
+    throw error;
+  }
+};
+
 export const logout = async () => {
   try {
     await account.deleteSession('current');

@@ -15,11 +15,13 @@ import SearchInput from '@/components/SearchInput';
 import Trending from '@/components/Trending';
 import EmptyState from '@/components/EmptyState';
 import useFetchData from '@/hooks/useFetchData';
-import { getAllPosts } from '@/lib/appwrite';
+import { getAllPosts, getLatestPosts } from '@/lib/appwrite';
+import VideoCard from '@/components/VideoCard';
 
 export default function HomeScreen() {
   const { user } = useGlobalContext();
   const { data: posts, refresh } = useFetchData(getAllPosts);
+  const { data: latestPosts } = useFetchData(getLatestPosts);
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -28,16 +30,13 @@ export default function HomeScreen() {
     await refresh();
     setRefreshing(false);
   };
-  console.log(posts);
 
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
         data={posts}
         keyExtractor={(item) => item.$id}
-        renderItem={({ item }) => (
-          <Text className="text-3xl text-white">{item.title}</Text>
-        )}
+        renderItem={({ item }) => <VideoCard video={item} />}
         ListHeaderComponent={() => (
           <View className="my-6 px-4 space-y-6">
             <View className="flex-row justify-between items-start mb-6">
@@ -69,7 +68,7 @@ export default function HomeScreen() {
                 Latest Videos
               </Text>
 
-              <Trending posts={[]} />
+              <Trending posts={latestPosts ?? []} />
             </View>
           </View>
         )}

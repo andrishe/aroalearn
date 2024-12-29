@@ -2,7 +2,6 @@ import { Models } from 'react-native-appwrite';
 import { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 
-// Définir correctement le type pour la fonction de récupération des données
 type FetchDataFn = () => Promise<Models.Document[]>;
 
 const useFetchData = (fn: FetchDataFn) => {

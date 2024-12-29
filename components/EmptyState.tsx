@@ -1,5 +1,5 @@
 import { View, Text, Image } from 'react-native';
-import { useState } from 'react';
+
 import { images } from '@/constants';
 import CustomButton from './CustomButton';
 import { router } from 'expo-router';
