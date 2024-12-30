@@ -10,7 +10,7 @@ import * as Animatable from 'react-native-animatable';
 import { CustomAnimation } from 'react-native-animatable';
 import React, { useState } from 'react';
 import icons from '@/constants/icons';
-import { Video, ResizeMode } from 'expo-av';
+import { Video } from 'expo-video';
 
 type Post = {
   $id: number;
@@ -60,7 +60,7 @@ const TrendingItem = ({
         <Video
           source={{ uri: item.video }}
           className="w-52 h-60 rounded-xl mt-3 bg-white/10"
-          resizeMode={ResizeMode.CONTAIN}
+          resizeMode="contain"
           useNativeControls
           shouldPlay
           isLooping

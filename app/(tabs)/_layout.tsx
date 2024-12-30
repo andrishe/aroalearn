@@ -35,8 +35,8 @@ export default function TabLayout() {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarInactiveTintColor: '#FFA001',
-        tabBarActiveTintColor: '#CDCDE0',
+        tabBarInactiveTintColor: '#CDCDE0',
+        tabBarActiveTintColor: '#FFA001',
         tabBarStyle: {
           backgroundColor: '#161622',
           borderTopWidth: 1,
@@ -59,20 +59,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="bookmark"
-        options={{
-          title: 'Bookmark',
-          tabBarIcon: ({ focused, color }) => (
-            <TabIcon
-              focused={focused}
-              color={color}
-              icon={icons.bookmark}
-              name="Book"
-            />
-          ),
-        }}
-      />
+
       <Tabs.Screen
         name="create"
         options={{
